@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V6CR9H5BZT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V6CR9H5BZT');
+  </script>
+
+  <!-- Google Search Console: inserisci il meta tag di verifica qui sotto quando sei pronto -->
+  <!-- <meta name="google-site-verification" content="INSERISCI_QUI_IL_TUO_CODICE" /> -->
+
+  <title>Riccardo Spinello | Semplifichiamo insieme la tua giornata con l'IA</title>
+  <meta name="description" content="Semplifichiamo insieme la tua giornata. Formazione pratica su IA generativa, metodo FORGE e collaborazioni con enti di formazione a Bergamo e Milano.">
+  <link rel="canonical" href="https://riccardospinello.com/">
+  <meta name="geo.region" content="IT-BG">
+  <meta name="geo.placename" content="Bergamo">
+  <meta name="geo.position" content="45.6983;9.6773">
+  <meta property="og:title" content="Riccardo Spinello | Semplifichiamo insieme la tua giornata">
+  <meta property="og:description" content="Metodo FORGE e collaborazioni con enti di formazione. Per integrare l'IA nel lavoro senza complicazioni.">
+  <meta property="og:type" content="website">
+
+  <style>
+    :root {
+      --crema: #f5f1e8;
+      --salvia: #a8b5a2;
+      --terracotta: #c77b5b;
+      --terracotta-strong: #b85c3f;
+      --accent: #e8a87c;
+      --gradient: linear-gradient(135deg, #c77b5b, #e8a87c);
+      --testo: #3f3f3f;
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: radial-gradient(circle at top, #ffffff, var(--crema));
+      color: var(--testo);
+      overflow-x: hidden;
+    }
+    .fade-up { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+    .visible { opacity: 1; transform: translateY(0); }
+    section { padding: 60px 20px; max-width: 900px; margin: auto; position: relative; }
+    h1 { font-size: 2.8rem; margin-bottom: 0.8rem; }
+    h2 { font-size: 2rem; margin-bottom: 1.2rem; }
+    .hero { text-align: center; padding-top: 120px; position: relative; }
+    .hero-cta { margin-top: 20px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+    .btn-primary, .btn-secondary {
+      display: inline-block;
+      background: var(--gradient);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+    .btn-primary:hover, .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      background: var(--gradient);
+    }
+    .floating-cta {
+      position: fixed; bottom: 20px; right: 20px; background: var(--gradient); color: white;
+      padding: 12px 18px; border-radius: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      cursor: pointer; z-index: 999; font-size: 0.9rem;
+    }
+    .floating-cta:hover { transform: translateY(-2px); }
+    .highlight { background: var(--gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600; }
+    .blob {
+      position: absolute; width: 350px; height: 350px; background: radial-gradient(circle, var(--accent), transparent);
+      border-radius: 50%; filter: blur(100px); opacity: 0.5; z-index: -1; animation: float 12s ease-in-out infinite;
+    }
+    @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-30px); } 100% { transform: translateY(0px); } }
+    .blob.top { top: -100px; left: -100px; }
+    .card {
+      background: linear-gradient(145deg, #ffffffdd, #f5f1e8cc);
+      border-radius: 20px; padding: 22px; margin: 18px 0;
+      transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    }
+    .card:hover { transform: translateY(-4px) scale(1.01); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+    .cta {
+      background: linear-gradient(135deg, var(--salvia), #cdd8c8);
+      padding: 30px; border-radius: 20px; text-align: center; box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+    }
+    #progress { position: fixed; top: 0; left: 0; height: 4px; background: var(--terracotta); width: 0%; z-index: 999; }
+
+    .forge-steps {
+      display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-top: 30px;
+    }
+    .forge-step {
+      background: white; border-radius: 20px; padding: 20px; flex: 1; min-width: 160px;
+      text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: all 0.3s ease;
+    }
+    .forge-step:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+    .forge-step h3 { font-size: 1.3rem; margin-bottom: 6px; color: var(--terracotta); }
+    .forge-step h4 { font-size: 0.9rem; margin: 0 0 8px 0; font-weight: 600; }
+    .forge-step p { font-size: 0.85rem; margin: 0; line-height: 1.4; }
+
+    .about-section {
+      background: white; border-radius: 30px; padding: 40px; margin: 40px auto;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    }
+    .about-container { display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
+    .about-image { flex: 1; min-width: 250px; text-align: center; }
+    .about-image img {
+      max-width: 100%; border-radius: 30px; box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+      display: block; margin: 0 auto; transition: transform 0.3s ease;
+    }
+    .about-image img:hover { transform: scale(1.02); }
+    .about-text { flex: 1.5; text-align: left; }
+    .about-text h3 { font-size: 1.8rem; color: var(--terracotta); margin-bottom: 20px; }
+    .about-text p { margin-bottom: 20px; line-height: 1.6; }
+    @media (max-width: 768px) {
+      .about-container { flex-direction: column; text-align: center; }
+      .about-text { text-align: center; }
+    }
+
+    /* Sezione recensioni Google - pronta per Elfsight */
+    .reviews-section {
+      background: #f9f7f2; border-radius: 20px; padding: 30px; margin: 20px 0;
+    }
+    .reviews-placeholder {
+      background: #f9f7f2; border-radius: 20px; padding: 30px;
+      text-align: center; border: 1px dashed var(--terracotta); margin: 20px 0;
+    }
+    .reviews-placeholder a { color: var(--terracotta); }
+
+    .partner-grid {
+      display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 25px;
+    }
+    .partner-card {
+      background: white; border-radius: 20px; padding: 12px 22px; text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: all 0.3s ease; min-width: 130px;
+    }
+    .partner-card:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+    .partner-card strong { color: var(--terracotta); }
+    .partner-card p { margin: 5px 0 0 0; font-size: 0.75rem; color: var(--testo); }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Riccardo Spinello",
+    "alternateName": "Formatore IA e tutor",
+    "description": "Semplifichiamo insieme la tua giornata. Recupera tempo ogni settimana con l'IA generativa e il metodo FORGE.",
+    "url": "https://riccardospinello.com",
+    "address": {"@type": "PostalAddress","addressLocality": "Bergamo","addressCountry": "IT"},
+    "knowsAbout": ["Intelligenza Artificiale generativa", "ChatGPT", "NotebookLM", "Perplexity", "Gemini", "Competenze digitali", "Tutoraggio", "Metodo FORGE"],
+    "worksFor": [
+      {"@type": "Organization","name": "Carpediem","location": "Bergamo"},
+      {"@type": "Organization","name": "Athena","location": "Milano"},
+      {"@type": "Organization","name": "ABF","location": "Trescore e Bergamo"},
+      {"@type": "Organization","name": "Patronato San Vincenzo","location": "Bergamo"},
+      {"@type": "Organization","name": "Coesi","location": "Bergamo"},
+      {"@type": "Organization","name": "3Menti","location": "Urgnano"},
+      {"@type": "Organization","name": "Politiche Attive","location": "Ospitaletto (BS)"},
+      {"@type": "Organization","name": "TackTmi - Gi Group","location": "Bergamo"}
+    ]
+  }
+  </script>
+
+  <div aria-hidden="true" style="display: none;">
+    Riccardo Spinello collabora con Carpediem Bergamo, Athena Milano, ABF Trescore e Bergamo, Patronato San Vincenzo Bergamo, Coesi Bergamo, 3Menti Urgnano, Politiche Attive Ospitaletto, TackTmi Gi Group Bergamo. Formazione IA generativa, metodo FORGE, tutoraggio personalizzato, corsi finanziati.
+  </div>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- HERO -->
+<section class="hero fade-up">
+  <div class="blob top"></div>
+  <h1>Semplifichiamo insieme la tua giornata</h1>
+  <p>L'IA non deve complicarti la vita.<br>Deve diventare <span class="highlight">il tempo che ti riprendi</span>.</p>
+  <div class="hero-cta">
+    <a href="#contatto" class="btn-primary">Vediamo come lavorare meglio</a>
+    <a href="#risultati" class="btn-primary">Vedi risultati</a>
+  </div>
+</section>
+
+<!-- Chi sono -->
+<section class="fade-up">
+  <div class="about-section">
+    <div class="about-container">
+      <div class="about-image">
+        <img src="images/riccardo-spinello.jpg" alt="Riccardo Spinello - Formatore IA">
+      </div>
+      <div class="about-text">
+        <h3>Chi è Riccardo Spinello?</h3>
+        <p>Formatore professionale ed esperto in processi formativi con oltre 2000 ore in aula. Ho alle spalle 18 anni in tribunale, dove ho affinato un approccio unico: <strong>osservo prima di proporre</strong>. Oggi applico quel metodo al mondo del lavoro, aiutando PMI e professionisti a <strong>semplificare il loro lavoro con l'IA</strong>.</p>
+        <p>Non vendo corsi preconfezionati. Costruisco <strong>soluzioni su misura</strong> e rendo il tuo team autonomo con il <strong>metodo FORGE</strong>. Il mio obiettivo è farti recuperare tempo, non aggiungere complessità.</p>
+        <div class="hero-cta" style="justify-content: flex-start;">
+          <a href="#contatto" class="btn-primary">Prenota una chiacchierata</a>
+          <a href="#risultati" class="btn-primary">Vedi i risultati</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pratica -->
+<section class="fade-up">
+  <h2>Un percorso fatto di pratica</h2>
+  <p>Lavoriamo su quello che fai ogni giorno. Non su esempi finti.</p>
+  <p>Nei miei percorsi si prova, si sbaglia, si sistema.<br>L'IA si usa. Non si studia e basta.</p>
+  <p>Perché il problema non è capire. È riuscire ad applicare davvero.</p>
+</section>
+
+<!-- Approccio -->
+<section class="fade-up">
+  <h2>Leggere senza interpretare</h2>
+  <p>18 anni ad analizzare segnali e comportamenti.<br>Oggi uso lo stesso approccio per capire come migliorare il lavoro, prima di proporre soluzioni.</p>
+</section>
+
+<!-- Risultati -->
+<section id="risultati" class="fade-up">
+  <h2>Risultati concreti</h2>
+  <div class="card"><h3>PMI - Novate Brianza</h3><p>Riduzione del 30% del tempo operativo nella gestione email e documenti.<br>Più focus sui problemi reali.</p></div>
+  <div class="card"><h3>PMI - Seriate</h3><p>Consulenze più rapide grazie a modelli già pronti e riutilizzabili.<br>Meno tempo perso, più valore per i clienti.</p></div>
+  <div class="card"><h3>Oltre 150 professionisti formati</h3><p>Persone di ufficio, consulenti e PMI manifatturiere.<br>Tutti con un obiettivo: usare l'IA per lavorare meglio, non di più.</p></div>
+  <div class="card"><h3>Feedback costante</h3><p>Valutazioni medie: 5 su 5.<br>Apprezzate pazienza, chiarezza e approccio pratico.</p></div>
+</section>
+
+<!-- Testimonianze -->
+<section class="fade-up">
+  <h2>Voci dal campo</h2>
+  <div class="card"><p>"Bellissima esperienza, corso interessante. Docente paziente e chiaro."<br>— Antonella Amico</p></div>
+  <div class="card"><p>"Competenze digitali base: interessante e di facile comprensione. Molto competente, paziente e disponibile. Utile."<br>— Romina Marziale</p></div>
+  <div class="card"><p>"Perso 3 giorni, con il trucco spiegato in 10 secondi risolto."<br>— Responsabile acquisti, PMI manifatturiera</p></div>
+  <div class="card"><p>"Pensavamo di sapere usare l'IA. In realtà ci hai aperto un mondo utile per l'ufficio."<br>— Impiegata amministrativa</p></div>
+</section>
+
+<!-- Collaborazioni -->
+<section class="fade-up">
+  <h2>Collaborazioni e partner</h2>
+  <p>Enti di formazione con cui ho collaborato per progetti finanziati e percorsi su misura.</p>
+  <div class="partner-grid">
+    <div class="partner-card"><strong>Carpediem</strong><p>Bergamo</p></div>
+    <div class="partner-card"><strong>Athena</strong><p>Milano</p></div>
+    <div class="partner-card"><strong>ABF</strong><p>Trescore e Bergamo</p></div>
+    <div class="partner-card"><strong>Patronato San Vincenzo</strong><p>Bergamo</p></div>
+    <div class="partner-card"><strong>Coesi</strong><p>Bergamo</p></div>
+    <div class="partner-card"><strong>3Menti</strong><p>Urgnano</p></div>
+    <div class="partner-card"><strong>Politiche Attive</strong><p>Ospitaletto (BS)</p></div>
+    <div class="partner-card"><strong>TackTmi - Gi Group</strong><p>Bergamo</p></div>
+  </div>
+</section>
+
+<!-- Come posso aiutarti -->
+<section class="fade-up">
+  <h2>Come posso aiutarti</h2>
+  <div class="card"><h3>Capisci subito cosa fare e cosa evitare</h3><p>Niente strategie vaghe. Ti mostro esattamente dove intervenire.</p></div>
+  <div class="card"><h3>Processi semplici, senza passaggi inutili</h3><p>Eliminiamo il superfluo. Il lavoro diventa più fluido e meno stressante.</p></div>
+  <div class="card"><h3>Meno operatività, più attività utili</h3><p>Recuperi ore ogni settimana da dedicare a ciò che conta davvero.</p></div>
+</section>
+
+<!-- METODO FORGE -->
+<section class="fade-up" style="background: var(--crema); border-radius: 20px;">
+  <div style="max-width: 1000px; margin: auto; text-align: center;">
+    <h2>Il metodo FORGE</h2>
+    <p style="margin-bottom: 20px;">Un sistema pratico per integrare l'IA nel tuo lavoro senza complicarti la vita.</p>
+    <div class="forge-steps">
+      <div class="forge-step"><h3>F</h3><h4>Fai chiarezza</h4><p>Definiamo dove intervenire per lavorare meglio</p></div>
+      <div class="forge-step"><h3>O</h3><h4>Ottimizza</h4><p>Semplifichiamo i processi esistenti</p></div>
+      <div class="forge-step"><h3>R</h3><h4>Rendi semplice</h4><p>Introduciamo l'IA senza complicazioni</p></div>
+      <div class="forge-step"><h3>G</h3><h4>Guida il cambiamento</h4><p>Rendiamo il team autonomo</p></div>
+      <div class="forge-step"><h3>E</h3><h4>Evidenzia i risultati</h4><p>Misuriamo i miglioramenti</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Tutoraggio -->
+<section class="fade-up">
+  <div style="max-width: 800px; margin: auto; text-align: center;">
+    <h2>Tutoraggio personalizzato</h2>
+    <p>Non solo corsi: lavoro uno a uno con te o con il tuo team. Ti affianco nei tuoi progetti reali, costruiamo insieme le automazioni. È il mio metodo per rendere l'apprendimento efficace e veloce.</p>
+  </div>
+</section>
+
+<!-- RECENSIONI GOOGLE -->
+<!-- 
+  ============================================================
+  Widget Elfsight Google Reviews attivo
+  ============================================================
+-->
+<section class="fade-up" id="recensioni">
+  <h2>Cosa dicono di me su Google</h2>
+  <!-- Widget recensioni Google
+     Quando Google Maps indicizzerà la tua scheda (5-7 giorni):
+     1. Vai su elfsight.com > My Apps > modifica il widget
+     2. Collega la tua scheda con il link Google Maps
+     3. Sostituisci questo commento con il codice Elfsight
+-->
+  <div style="background:#f9f7f2; border-radius:20px; padding:30px; text-align:center; border:1px dashed #c77b5b;">
+    <p style="color:#c77b5b; margin:0;">⭐ Le recensioni Google arriveranno qui nei prossimi giorni.<br>
+    <small style="color:#888;">Sei il primo a poter recensire questa attività su Google.</small></p>
+  </div>
+</section>
+
+<!-- CONTATTO con Tally -->
+<section id="contatto" class="cta fade-up">
+  <h2>Raccontami come usi l'IA adesso</h2>
+  <p>Rispondo personalmente entro 24 ore. Non riceverai un preventivo standard — ti dico cosa puoi migliorare davvero.</p>
+  <p style="margin-bottom: 10px; font-size: 0.9rem;">Per un contatto rapido e professionale:</p>
+  <a href="https://www.linkedin.com/in/riccardo-spinello-901346b/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:8px; background:#0077b5; color:white; padding:12px 24px; border-radius:40px; text-decoration:none; font-weight:600; font-size:0.95rem; margin-bottom:24px; box-shadow:0 4px 8px rgba(0,0,0,0.1); transition:all 0.3s ease;" onmouseover="this.style.background='#005e8e'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#0077b5'; this.style.transform='translateY(0)'">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    Connettiti su LinkedIn
+  </a>
+  <div style="border-radius: 20px; overflow: hidden; margin-top: 20px;">
+    <iframe
+      data-tally-src="https://tally.so/embed/dWQDZz?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+      loading="lazy"
+      width="100%"
+      height="400"
+      frameborder="0"
+      marginheight="0"
+      marginwidth="0"
+      title="Modulo di contatto Riccardo Spinello"
+      style="background: white; border-radius: 20px;">
+    </iframe>
+    <script async src="https://tally.so/widgets/embed.js"></script>
+  </div>
+  <p style="font-size:0.75rem; margin-top:15px;">Titolare del trattamento: Riccardo Spinello – P.IVA 04826300164.<br>I dati non saranno ceduti a terzi. Puoi richiedere la cancellazione in qualsiasi momento.</p>
+</section>
+
+<div class="floating-cta" onclick="document.getElementById('contatto').scrollIntoView({behavior:'smooth'})">Vediamo come lavorare meglio</div>
+
+<script>
+  const fadeElements = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  fadeElements.forEach(el => observer.observe(el));
+
+  window.onscroll = () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.getElementById("progress").style.width = scrolled + "%";
+  };
+</script>
+</body>
+</html>
