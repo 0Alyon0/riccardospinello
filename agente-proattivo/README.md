@@ -10,6 +10,7 @@ Si ispira all'idea di Instinct, ma il codice è tutto nuovo e scritto da zero.
   e progetti. Ti scrive solo se ha qualcosa di utile, con un massimo di messaggi al giorno.
 - **Collegato**: Google Calendar (lettura e creazione di eventi), Gmail (sola lettura), ricerca web.
 - **Promemoria**: "ricordami domani alle 9 di chiamare Marco" e lui te lo scrive.
+- **Messaggi vocali**: su WhatsApp e Telegram puoi parlargli invece di scrivere.
 
 ## Come funziona
 
@@ -34,6 +35,7 @@ Scheduler ─┬─ ogni minuto: invia i promemoria scaduti
 | `app/proattivo.py` | scheduler: promemoria, briefing, controlli periodici |
 | `app/whatsapp.py` | invio dei messaggi e verifica della firma Twilio |
 | `app/telegram.py` | bot Telegram: invio, webhook o polling |
+| `app/voce.py` | trascrizione dei vocali (Whisper locale o servizio esterno) |
 | `app/canali.py` | sceglie la chat: le risposte tornano dove hai scritto, i messaggi proattivi vanno sull'ultima chat usata |
 | `app/integrazioni/google.py` | Calendar e Gmail |
 
@@ -77,6 +79,21 @@ chat in cui hai scritto (all'inizio su `CANALE_PREDEFINITO`).
 Per l'uso vero e proprio di WhatsApp: un numero WhatsApp Business approvato su Twilio e il server su un
 hosting sempre acceso (Railway, Render, Fly.io, una VPS). Lo scheduler gira dentro il server,
 quindi il server deve restare acceso.
+
+## Messaggi vocali
+
+I vocali vengono trascritti e passati all'agente come testo, su WhatsApp e su Telegram.
+Hai due modi per trascriverli:
+
+- **Whisper sul tuo server** (predefinito): gratis e l'audio non esce dal server. La prima volta
+  scarica il modello (`small` pesa circa 500 MB e vuole circa 1 GB di RAM). Su un hosting
+  piccolo usa `WHISPER_MODELLO=base`, più leggero ma meno preciso.
+- **Servizio esterno**: imposta `TRASCRIZIONE_API_URL` e `TRASCRIZIONE_API_KEY`. Funziona con
+  qualunque servizio compatibile con l'API di trascrizione di OpenAI, per esempio OpenAI o Groq
+  (veloce ed economico). Esempio in `.env.example`.
+
+I vocali più lunghi di `DURATA_MASSIMA_VOCALE` secondi (10 minuti) vengono rifiutati. Se la
+trascrizione non riesce, l'agente ti chiede di ripetere o di scrivere.
 
 ## Sicurezza
 

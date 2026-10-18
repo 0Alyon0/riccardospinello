@@ -1,4 +1,5 @@
 """Invio e verifica dei messaggi WhatsApp tramite Twilio."""
+import requests
 from twilio.request_validator import RequestValidator
 from twilio.rest import Client
 
@@ -36,3 +37,20 @@ def invia(testo: str, a: str | None = None) -> None:
 
 def firma_valida(url: str, parametri: dict, firma: str) -> bool:
     return _validatore.validate(url, parametri, firma)
+
+
+def vocale_in_arrivo(form: dict) -> str | None:
+    """URL del primo allegato audio di un messaggio Twilio, se c'è."""
+    for i in range(int(form.get("NumMedia") or 0)):
+        if (form.get(f"MediaContentType{i}") or "").startswith("audio/"):
+            return form.get(f"MediaUrl{i}")
+    return None
+
+
+def scarica_media(url: str) -> tuple[bytes, str]:
+    """Scarica un allegato; restituisce (contenuto, nome del file)."""
+    # requests toglie le credenziali quando Twilio reindirizza al suo archivio file
+    risposta = requests.get(url, auth=(config.TWILIO_ACCOUNT_SID, config.TWILIO_AUTH_TOKEN), timeout=60)
+    risposta.raise_for_status()
+    estensione = risposta.headers.get("Content-Type", "audio/ogg").split("/")[-1].split(";")[0]
+    return risposta.content, f"vocale.{estensione}"

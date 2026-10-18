@@ -42,6 +42,16 @@ TELEGRAM_WEBHOOK_SECRET = os.getenv("TELEGRAM_WEBHOOK_SECRET", "")
 # Dove arrivano i messaggi proattivi prima che tu abbia mai scritto: whatsapp | telegram
 CANALE_PREDEFINITO = os.getenv("CANALE_PREDEFINITO", "whatsapp")
 
+# Messaggi vocali
+TRASCRIZIONE_LINGUA = os.getenv("TRASCRIZIONE_LINGUA", "it")
+# Whisper in locale: tiny | base | small | medium (più grande = più preciso e più lento)
+WHISPER_MODELLO = os.getenv("WHISPER_MODELLO", "small")
+# Servizio esterno compatibile OpenAI, es. https://api.groq.com/openai/v1/audio/transcriptions
+TRASCRIZIONE_API_URL = os.getenv("TRASCRIZIONE_API_URL", "")
+TRASCRIZIONE_API_KEY = os.getenv("TRASCRIZIONE_API_KEY", "")
+TRASCRIZIONE_API_MODELLO = os.getenv("TRASCRIZIONE_API_MODELLO", "whisper-1")
+DURATA_MASSIMA_VOCALE = _int("DURATA_MASSIMA_VOCALE", 600)  # secondi
+
 # Memoria
 DB_PATH = Path(os.getenv("DB_PATH", BASE_DIR / "data" / "memoria.db"))
 HISTORY_TURNS = _int("HISTORY_TURNS", 40)

@@ -7,3 +7,6 @@ apscheduler>=3.10,<4
 python-dotenv>=1.0
 google-api-python-client>=2.100
 google-auth-oauthlib>=1.2
+faster-whisper>=1.1
+av>=12,<17  # PyAV 17+ non è compatibile con faster-whisper 1.2
+requests>=2.31

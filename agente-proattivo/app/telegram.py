@@ -49,12 +49,13 @@ def sta_scrivendo() -> None:
             pass
 
 
-def estrai_testo(update: dict) -> tuple[str, str] | None:
-    """Restituisce (chat_id, testo) se l'update è un messaggio di testo del proprietario."""
+def estrai_messaggio(update: dict) -> dict | None:
+    """Messaggio del proprietario: {"testo": ...} oppure {"vocale": file_id, "durata": secondi}."""
     messaggio = update.get("message") or {}
-    testo = (messaggio.get("text") or "").strip()
     chat_id = str(messaggio.get("chat", {}).get("id", ""))
-    if not testo:
+    testo = (messaggio.get("text") or "").strip()
+    audio = messaggio.get("voice") or messaggio.get("audio")
+    if not testo and not audio:
         return None
     if chat_id != config.TELEGRAM_OWNER_CHAT_ID:
         log.warning("Messaggio Telegram ignorato dalla chat %s", chat_id)
@@ -64,7 +65,17 @@ def estrai_testo(update: dict) -> tuple[str, str] | None:
         return None
     if testo == "/start":
         return None
-    return chat_id, testo
+    if audio:
+        return {"vocale": audio["file_id"], "durata": audio.get("duration", 0)}
+    return {"testo": testo}
+
+
+def scarica_file(file_id: str) -> tuple[bytes, str]:
+    """Scarica un file inviato al bot; restituisce (contenuto, nome del file)."""
+    percorso = _api("getFile", {"file_id": file_id})["result"]["file_path"]
+    url = f"https://api.telegram.org/file/bot{config.TELEGRAM_BOT_TOKEN}/{percorso}"
+    with urllib.request.urlopen(url, timeout=60) as risposta:
+        return risposta.read(), percorso.rsplit("/", 1)[-1]
 
 
 def configura_webhook() -> None:
@@ -76,7 +87,7 @@ def configura_webhook() -> None:
 
 
 def avvia_polling(gestisci) -> threading.Event:
-    """Legge i messaggi in un thread separato; `gestisci(testo)` viene chiamata per ognuno."""
+    """Legge i messaggi in un thread separato; `gestisci(messaggio)` viene chiamata per ognuno."""
     ferma = threading.Event()
 
     def ciclo() -> None:
@@ -91,9 +102,9 @@ def avvia_polling(gestisci) -> threading.Event:
                 continue
             for update in risposta.get("result", []):
                 offset = update["update_id"] + 1
-                dati = estrai_testo(update)
-                if dati:
-                    threading.Thread(target=gestisci, args=(dati[1],), daemon=True).start()
+                messaggio = estrai_messaggio(update)
+                if messaggio:
+                    threading.Thread(target=gestisci, args=(messaggio,), daemon=True).start()
 
     threading.Thread(target=ciclo, daemon=True, name="telegram-polling").start()
     return ferma
