@@ -58,7 +58,7 @@ STRUMENTI_MEMORIA = [
     },
     {
         "name": "crea_promemoria",
-        "description": "Programma un messaggio WhatsApp da inviare al proprietario a una data/ora precisa.",
+        "description": "Programma un messaggio in chat da inviare al proprietario a una data/ora precisa.",
         "input_schema": {
             "type": "object",
             "properties": {

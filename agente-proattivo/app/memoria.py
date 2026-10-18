@@ -39,6 +39,10 @@ CREATE TABLE IF NOT EXISTS promemoria (
     testo TEXT NOT NULL,
     inviato INTEGER NOT NULL DEFAULT 0
 );
+CREATE TABLE IF NOT EXISTS impostazioni (
+    chiave TEXT PRIMARY KEY,
+    valore TEXT NOT NULL
+);
 """
 
 
@@ -184,3 +188,20 @@ def promemoria_attivi() -> list[sqlite3.Row]:
 def segna_promemoria_inviato(promemoria_id: int) -> None:
     with _db() as conn:
         conn.execute("UPDATE promemoria SET inviato = 1 WHERE id = ?", (promemoria_id,))
+
+
+# --- Impostazioni ----------------------------------------------------------
+
+def imposta(chiave: str, valore: str) -> None:
+    with _db() as conn:
+        conn.execute(
+            "INSERT INTO impostazioni (chiave, valore) VALUES (?, ?) "
+            "ON CONFLICT(chiave) DO UPDATE SET valore = excluded.valore",
+            (chiave, valore),
+        )
+
+
+def leggi(chiave: str) -> str | None:
+    with _db() as conn:
+        riga = conn.execute("SELECT valore FROM impostazioni WHERE chiave = ?", (chiave,)).fetchone()
+    return riga["valore"] if riga else None

@@ -1,6 +1,7 @@
-# Agente proattivo su WhatsApp
+# Agente proattivo su WhatsApp e Telegram
 
-Un assistente personale che vive nella tua chat WhatsApp, costruito con Claude.
+Un assistente personale che vive nelle tue chat WhatsApp e Telegram, costruito con Claude.
+La memoria è una sola: quello che gli dici su Telegram lo sa anche su WhatsApp.
 Si ispira all'idea di Instinct, ma il codice è tutto nuovo e scritto da zero.
 
 - **Memoria a lungo termine**: salva da solo i fatti importanti (persone, clienti, viaggi,
@@ -13,7 +14,8 @@ Si ispira all'idea di Instinct, ma il codice è tutto nuovo e scritto da zero.
 ## Come funziona
 
 ```
-WhatsApp ──► Twilio ──► /whatsapp (FastAPI) ──► Claude + strumenti ──► risposta su WhatsApp
+WhatsApp ──► Twilio ──► /whatsapp ─┐
+Telegram ──► /telegram o polling ───┴─► Claude + strumenti ──► risposta sulla stessa chat
                                                    │
                          memoria SQLite ◄──────────┤  (fatti, chat, promemoria)
                          Calendar / Gmail ◄────────┤
@@ -31,6 +33,8 @@ Scheduler ─┬─ ogni minuto: invia i promemoria scaduti
 | `app/strumenti.py` | strumenti che l'agente può usare |
 | `app/proattivo.py` | scheduler: promemoria, briefing, controlli periodici |
 | `app/whatsapp.py` | invio dei messaggi e verifica della firma Twilio |
+| `app/telegram.py` | bot Telegram: invio, webhook o polling |
+| `app/canali.py` | sceglie la chat: le risposte tornano dove hai scritto, i messaggi proattivi vanno sull'ultima chat usata |
 | `app/integrazioni/google.py` | Calendar e Gmail |
 
 ## Avvio rapido
@@ -59,13 +63,25 @@ python -m scripts.chat_locale --proattivo   # simula un controllo proattivo
 4. Esponilo su internet (per le prove: `ngrok http 8000`) e incolla `https://.../whatsapp`
    nel campo *When a message comes in* della sandbox. Lo stesso URL va in `PUBLIC_WEBHOOK_URL`.
 
-Per l'uso vero e proprio: un numero WhatsApp Business approvato su Twilio e il server su un
+**4. Collega Telegram (più semplice di WhatsApp, è gratis):**
+1. Su Telegram apri @BotFather, scrivi `/newbot` e copia il token in `TELEGRAM_BOT_TOKEN`.
+2. Avvia il server (`uvicorn app.main:app --port 8000`) e scrivi `/start` al tuo bot:
+   ti risponde con il tuo chat id. Mettilo in `TELEGRAM_OWNER_CHAT_ID` e riavvia.
+3. Fatto. Senza altre impostazioni il bot usa il *polling*, quindi funziona anche dal tuo
+   computer senza ngrok. In produzione puoi usare il webhook: imposta `TELEGRAM_WEBHOOK_URL`
+   (`https://.../telegram`) e una stringa casuale in `TELEGRAM_WEBHOOK_SECRET`.
+
+Puoi usare solo Telegram, solo WhatsApp o entrambi. I messaggi proattivi arrivano sull'ultima
+chat in cui hai scritto (all'inizio su `CANALE_PREDEFINITO`).
+
+Per l'uso vero e proprio di WhatsApp: un numero WhatsApp Business approvato su Twilio e il server su un
 hosting sempre acceso (Railway, Render, Fly.io, una VPS). Lo scheduler gira dentro il server,
 quindi il server deve restare acceso.
 
 ## Sicurezza
 
-- Risponde **solo** al numero in `OWNER_WHATSAPP` e verifica la firma di ogni richiesta Twilio.
+- Risponde **solo** al numero in `OWNER_WHATSAPP` e alla chat in `TELEGRAM_OWNER_CHAT_ID`.
+  Verifica la firma di ogni richiesta Twilio e il segreto del webhook Telegram.
 - Gmail è in sola lettura. Per creare eventi in calendario chiede conferma.
 - Non salvare mai password di Instagram/LinkedIn nell'agente: se vuoi farlo agire sui social,
   usa le API ufficiali con token revocabili.

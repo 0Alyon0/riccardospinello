@@ -6,7 +6,7 @@ from datetime import datetime
 
 from apscheduler.schedulers.background import BackgroundScheduler
 
-from . import agente, config, memoria, whatsapp
+from . import agente, canali, config, memoria
 from .integrazioni import google
 
 log = logging.getLogger(__name__)
@@ -44,7 +44,7 @@ def _contesto() -> str:
 def invia_promemoria_scaduti() -> None:
     for p in memoria.promemoria_scaduti():
         testo = f"⏰ {p['testo']}"
-        whatsapp.invia(testo)
+        canali.invia(testo)
         memoria.salva_messaggio("assistant", testo, proattivo=True)
         memoria.segna_promemoria_inviato(p["id"])
 
@@ -62,7 +62,7 @@ def controllo_proattivo(motivo: str = "controllo periodico") -> None:
             log.exception("Controllo proattivo fallito")
             return
     if messaggio:
-        whatsapp.invia(messaggio)
+        canali.invia(messaggio)
 
 
 def briefing_mattutino() -> None:
@@ -78,7 +78,7 @@ def briefing_mattutino() -> None:
             log.exception("Briefing mattutino fallito")
             return
     if messaggio:
-        whatsapp.invia(messaggio)
+        canali.invia(messaggio)
 
 
 def avvia() -> BackgroundScheduler:

@@ -31,6 +31,17 @@ OWNER_WHATSAPP = os.getenv("OWNER_WHATSAPP", "")
 # URL pubblico del webhook, serve per verificare la firma Twilio
 PUBLIC_WEBHOOK_URL = os.getenv("PUBLIC_WEBHOOK_URL", "")
 
+# Telegram (bot creato con @BotFather)
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
+# Unica chat autorizzata: il tuo id Telegram (il bot te lo dice se gli scrivi /start)
+TELEGRAM_OWNER_CHAT_ID = os.getenv("TELEGRAM_OWNER_CHAT_ID", "")
+# Se vuoto si usa il polling, che non richiede un URL pubblico
+TELEGRAM_WEBHOOK_URL = os.getenv("TELEGRAM_WEBHOOK_URL", "")
+TELEGRAM_WEBHOOK_SECRET = os.getenv("TELEGRAM_WEBHOOK_SECRET", "")
+
+# Dove arrivano i messaggi proattivi prima che tu abbia mai scritto: whatsapp | telegram
+CANALE_PREDEFINITO = os.getenv("CANALE_PREDEFINITO", "whatsapp")
+
 # Memoria
 DB_PATH = Path(os.getenv("DB_PATH", BASE_DIR / "data" / "memoria.db"))
 HISTORY_TURNS = _int("HISTORY_TURNS", 40)
